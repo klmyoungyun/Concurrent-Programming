@@ -6,7 +6,7 @@ IOS 동시성 프로그래밍 공부하면서 [블로그](https://younggyun.tist
 |------|---|---|
 |[1. Sync, Async, Serial, Concurrent](./1.Sync%2C%20Async%2C%20Serial%2C%20Concurrent/README.md)|2022. 08. 23|✅|
 |[2. GCD(Grand Central Dispatch)](./2.GCD(Grand%20Central%20Dispatch)/README.md)|2022. 08. 24|✅|
-|2. Dispatch Group, Dispatch WorkItem| |❎|
+|3. Dispatch Group, Dispatch WorkItem| 예정|❎|
 
 
 ## **참고**
