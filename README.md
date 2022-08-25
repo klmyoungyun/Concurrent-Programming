@@ -5,10 +5,10 @@ IOS 동시성 프로그래밍 공부하면서 정리한 레포지토리
 ## **순서**
 |제목|작성 날짜|작성 완료|
 |------|---|---|
-|[1. Sync, Async, Serial, Concurrent](./0.Sync%2CAsync%2CSerial%2CConcurrent/README.md)|2022. 08. 23|✅|
-|[2. GCD(Grand Central Dispatch)](./%081.GCD(Grand%20Central%20Dispatch)/README.md)|2022. 08. 24|✅|
-|2. Dispatch Group, Dispatch WorkItem| |❎|
-
+|[1. Sync, Async, Serial, Concurrent](./1.Sync%2C%20Async%2C%20Serial%2C%20Concurrent/README.md)|2022. 08. 23|✅|
+|[2. GCD(Grand Central Dispatch)](./2.GCD(Grand%20Central%20Dispatch)/README.md)|2022. 08. 24|✅|
+|[3. Dispatch Group](./3.Dispatch%20Group/README.md)| 2022. 08. 26|✅|
+|4. Dispatch WorkItem| |❎|
 
 ## **참고**
 - [Apple developer document](https://developer.apple.com/documentation/dispatch)
