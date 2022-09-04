@@ -1,40 +1,39 @@
-GCD(Grand Central Dispatch)란 멀티 코어와 멀티 프로세싱 환경에서 최적화된 프로그래밍을 할 수 있도록 애플이 개발한 기술이다. Dispatch Queue에 들어온 작업을 직렬적(serially) 또는 동시적(concurrently)으로 실행한다. 큐에 들어온 작업은 시스템에 의해 생성된 스레드에서 동기적(synchronously) 또는 비동기적(asynchronously)으로 실행되며 작업이 종료되면 해당 스레드를 제거한다. 
-
 # **GCD(Grand Central Dispatch)**
+GCD(Grand Central Dispatch)란 멀티 코어와 멀티 프로세싱 환경에서 최적화된 프로그래밍을 할 수 있도록 애플이 개발한 기술이다. Dispatch Queue에 들어온 작업을 직렬적(serially) 또는 동시적(concurrently)으로 실행한다. 큐에 들어온 작업은 시스템에 의해 생성된 스레드에서 동기적(synchronously) 또는 비동기적(asynchronously)으로 실행되며 작업이 종료되면 해당 스레드를 제거한다.
 
 DispatchQueue는 3가지 종류가 있다.
 
--   main
--   global
--   custom
+- main
+- global
+- custom
 
 ## **main**
 
 ![image0](image0.png)
 
-메인 디스패치 큐는 기본적으로 직렬 큐이고 메인 스레드에 작업을 배정한다. [만약 메인 스레드가 너무 오랫동안 응답하지 않으면 0x8badf00d exception이 발생할 수 있다고 한다.](https://developer.apple.com/documentation/dispatch/dispatchqueue/1781006-main) 그러므로 네트워크 통신과 같이 오래 걸리는 작업은 global queue를 사용해 다른 스레드에서 작업하는 것을 권장한다. 
+메인 디스패치 큐는 기본적으로 직렬 큐이고 메인 스레드에 작업을 배정한다. [만약 메인 스레드가 너무 오랫동안 응답하지 않으면 0x8badf00d exception이 발생할 수 있다고 한다.](https://developer.apple.com/documentation/dispatch/dispatchqueue/1781006-main) 그러므로 네트워크 통신과 같이 오래 걸리는 작업은 global queue를 사용해 다른 스레드에서 작업하는 것을 권장한다.
 
 ## **global**
 
-글로벌 디스패치 큐는 기본적으로 동시 큐이고 메인 스레드가 아닌 다른 스레드에 작업을 배정한다. `DispatchQos`에 따라 6가지로 나눌 수 있다. qos(quality-of-service)를 사용하여 큐로 보낸 작업의 의도를 시스템에 전달한다. 시스템은 qos에 따라 작업의 중요성을 판단하고 적절한 자원을 분배한다. 예를 들어 유저와 상호작용하는 작업의 경우 높은 우선순위를 주어 여러 개의 스레드를 배정하고 많은 전력을 사용해 빠르게 실행되도록 한다. 
+글로벌 디스패치 큐는 기본적으로 동시 큐이고 메인 스레드가 아닌 다른 스레드에 작업을 배정한다. `DispatchQos`에 따라 6가지로 나눌 수 있다. qos(quality-of-service)를 사용하여 큐로 보낸 작업의 의도를 시스템에 전달한다. 시스템은 qos에 따라 작업의 중요성을 판단하고 적절한 자원을 분배한다. 예를 들어 유저와 상호작용하는 작업의 경우 높은 우선순위를 주어 여러 개의 스레드를 배정하고 많은 전력을 사용해 빠르게 실행되도록 한다.
 
 ### **종류**
 
--   **userInteractive**  
+- **userInteractive**  
 
     애니메이션, 이벤트 처리 또는 앱의 인터페이스 업데이트와 같은 유저와 직접적으로 상호작용하는 작업에 할당할 수 있다.
--   **userInitiated**
+- **userInitiated**
     
     유저가 하는 작업에 즉각적인 결과를 제공하거나 유저가 앱을 사용하지 못하게 하는 작업에 할당할 수 있다. 비동기적으로 처리된 작업을 예로 들 수 있다.
--   **default**
+- **default**
     
     디폴트로 설정된 값으로 일반적인 작업을 할 때 사용하면 된다. 그냥 모르면 이거 쓰자.
--   **utility**
-    
+- **utility**
+
     보통 progress indicator와 함께 길게 실행되는 작업, 계산, IO, Networking, 지속적인 데이터 feed 작업에 할당할 수 있다.
--   **background**
+- **background**
     
-    유저가 직접적으로 인지하지 않는 작업과 같이 앱의 백그라운드에서 실행되는 작업을 수행하는 데 사용하는 작업에 할당할 수 있다. 속도보다는 효율성을 중시할 때 사용한다. 
+    유저가 직접적으로 인지하지 않는 작업과 같이 앱의 백그라운드에서 실행되는 작업을 수행하는 데 사용하는 작업에 할당할 수 있다. 속도보다는 효율성을 중시할 때 사용한다.
 
 ### **특징**
 
@@ -51,7 +50,7 @@ let customSerialQueue = DispatchQueue(label: "serialQueue")
 let customConcurrentQueue = DispatchQueue(label: "concurrentQueue", attributes: .concurrent)
 ```
 
-# **주의 사항**
+## **주의 사항**
 
 **⦁ 반드시 UI 관련 작업은 메인 큐(=스레드)로 처리해야 한다.**
 
@@ -65,7 +64,7 @@ let customConcurrentQueue = DispatchQueue(label: "concurrentQueue", attributes: 
 
 현재 큐에서 현재 큐로 동기적으로 작업을 보내는 경우를 생각해보자. 현재 큐가 배정한 스레드에서 작업을 수행 중이다가 현재 큐로 다시 어떤 작업을 동기적으로 보내는 경우이다.
 
-```
+```swift
 DispatchQueue.global().async {
     task()
     DispatchQueue.global().sync {
@@ -82,7 +81,7 @@ DispatchQueue.global().async {
 
 따라서 아래 코드의 실행 결과는 1을 출력하고 교착 상태에 빠진다.
 
-```
+```swift
 // 출처 : 유튜브 IOS Academy 커뮤니티 게시글
 let queue = DispatchQueue(label: "io.iosacademy.queue")
 
@@ -105,6 +104,6 @@ queue.async {
 }
 ```
 
-**⦁ 순환 참조를 주의해야 한다.** 
+**⦁ 순환 참조를 주의해야 한다.**
 
 디스 패치 큐로 작업을 보낼 때 클로저로 보내기 때문에 항상 순한 참조를 조심해야 한다. `weak`나 `unowned`를 사용해 해결할 수 있다.

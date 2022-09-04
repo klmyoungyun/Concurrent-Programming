@@ -1,4 +1,6 @@
-```
+# **Dispatch WorkItem**
+
+```swift
 func sync(execute block: () -> Void)
 
 func async(group: DispatchGroup? = nil,
@@ -9,18 +11,16 @@ func async(group: DispatchGroup? = nil,
 
 지금까지 디스패치 큐(DispatchQueue)에 클로저 형태로 작업을 보냈다. 반복되는 작업을 디스패치 큐에 매번 클로저의 형태로 보내는 것보다는 작업을 캡슐화한 디스패치 워크 아이템(Dispatch WorkItem)을 사용하는 것을 추천한다.
 
-# **Dispatch WorkItem**
-
 디스패치 워크 아이템은 클래스로 작업을 캡슐화할 뿐만 아니라 아래의 추가적인 기능을 제공한다.
 
--   `perform()`
--   `notify()`
--   `wait()`
--   `cancel()`
+- `perform()`
+- `notify()`
+- `wait()`
+- `cancel()`
 
 ## **사용**
 
-```
+```swift
 let task = DispatchWorkItem(qos: .background) {
     print("Task 시작")
     sleep(3)
@@ -33,7 +33,7 @@ queue.async(execute: task)
 
 디스패치 워크 아이템 객체를 만들어 `excute` 매개변수 보내면 된다. 위의 코드는 아래 코드와 동일하다.
 
-```
+```swift
 queue.async(qos: .background) {
     print("Task 시작")
     sleep(3)
@@ -45,7 +45,7 @@ queue.async(qos: .background) {
 
 `perform` 메서드는 현재 스레드에서 디스패치 워크 아이템을 동기적으로 실행한다. 따라서 메인 메서드에서 주의해서 사용해야 한다.
 
-```
+```swift
 let task = DispatchWorkItem(qos: .background) {
     print("Task 시작")
     sleep(3)
@@ -58,7 +58,7 @@ task.perform()
 
 디스패치 그룹의 `notify` 메서드와 비슷한 기능을 한다. `notify` 메서드를 호출한 아이템이 끝난 후 실행할 작업과 큐를 지정할 수 있다. 
 
-```
+```swift
 let task1 = DispatchWorkItem(qos: .background) {
     print("\(currentTimeString()) : Task1 시작")
     sleep(3)
@@ -86,7 +86,7 @@ task1.notify(queue: .global(), execute: task2)
 
 `wait` 메서드를 호출한 디스패치 워크 아이템이 끝날 때까지 최대 매개변수로 보낸 시간만큼 현재 큐를 블록 처리한다. 동기적인 순서로 아이템이 실행되어야 할 때 사용하면 된다. Task 1 시작이 출력된 후 Task 1이 완료될 때까지 최대 2초까지 기다린 후 Task 2 시작이 출력된다.
 
-```
+```swift
 let task1 = DispatchWorkItem(qos: .background) {
     print("\(currentTimeString()) : Task1 시작")
     sleep(3)
@@ -118,7 +118,7 @@ que.async(execute: task2)
 
 task2가 시작되기 전에 `cancel` 메서드가 실행되어 `notify` 메서드가 바로 실행된다.
 
-```
+```swift
 let task1 = DispatchWorkItem(qos: .background) {
     print("\(currentTimeString()) : Task1 시작")
     sleep(3)
@@ -155,7 +155,7 @@ task2가 실행된 후 `cancel` 메서드를 실행하는 경우에 실행결과
 
 경우 3은 작업을 모두 비동기적으로 보냈기 때문에 근소한 차이로 `cancel` 메서드가 task2가 실행되기 전에 먼저 실행된 경우이다.
 
-```
+```swift
 let task1 = DispatchWorkItem(qos: .background) {
     print("\(currentTimeString()) : Task1 시작")
     sleep(3)

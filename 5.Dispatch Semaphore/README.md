@@ -4,7 +4,7 @@
 
 비동기 처리로 인해 공유 자원에 동시에 접근하여 데이터 불일치가 발생하는 경쟁 상태(Race Condition)를 막기 위해 스레드(혹은 프로세스) 간의 동기화가 필요하다. 임계 구역(Critical Section)에 한 개의 스레드가 접근했다면 다른 스레드에서는 접근하지 못하도록 해야 한다. 세마포어(Semaphore)는 임계 구역 문제(Critical Section Problem)를 해결하기 위한 여러 가지 방법 중 한 개다.
 
-세마포어는 양수 값\\((S)\\)으로 \\(S\\)를 수정하는 두 가지 연산을 수행한다.
+세마포어는 양수 값$(S)$으로 $S$를 수정하는 두 가지 연산을 수행한다.
 
 - `wait` : 만약 값이 0이 아니면 하나 감소시키고 critical section에 진입한다. 그렇지 않으면 signal 연산이 실행되어 값이 증가하기 전까지 해당 작업을 차단한다.
 - `signal` : 대기 중인 스레드가 있는 경우, 스레드의 차단을 해제하고, 그렇지 않으면 값을 증가시킨다.
@@ -20,7 +20,7 @@ init(value: Int) // Creates new counting semaphore with an initial value.
 let semaphore = DispatchSemaphore(value: 3)
 ```
 
-[![image2](./image2.png)]
+![image2](./image2.png)
 
 세마포어의 값을 3으로 설정하고 5개의 작업을 큐로 보낼 때 5개 작업이 모두 스레드에 배정되는 것이 아닌 3개의 작업만 스레드에 배정된다. 4번째 작업의 wait()를 실행하고 작업을 큐에 넣었을 때 이미 세마포어의 값은 0이기 때문에 4번째 작업은 차단된다.
 

@@ -8,7 +8,7 @@
 
 ## **Dispatch Group과 동기적 작업**
 
-```
+```swift
 let group1 = DispatchGroup()
 DispatchQueue.global(qos: .userInteractive).async(group: group1) { task1() }
 DispatchQueue.global(qos: .userInteractive).async(group: group1) { task2() }
@@ -22,7 +22,7 @@ DispatchQueue.global(qos: .default).async(group: group1) { task5() }
 
 예를 들어 같은 그룹(group1)으로 묶은 작업(task)을 서로 다른 큐에서 비동기적으로 실행했을 때 디스패치 그룹의 `notify` 메서드에 클로저를 전달해 모든 작업이 완료되었을 때 실행할 작업을 정할 수 있다.
 
-```
+```swift
 group1.notify(queue: .main) { 
     // 완료 되었을 때 실행할 작업
 }
@@ -32,7 +32,7 @@ group1.notify(queue: .main) {
 
 ## **Dispatch Group과 비동기적 작업**
 
-잘 생각해보면 디스패치 그룹이 작업의 완료 시점을 알려주는 것은 수행되는 작업이 동기적으로 수행되었기 때문에 가능했다. 디스패치 그룹이 notify 하는 시점은 스레드로 배정된 작업이 끝난 시점이라는 것이다. 만약 작업 내부에서 비동기적으로 수행되는 작업이 있는 경우에는 스레드는 다른 스레드로 보낸 비동기적 작업을 기다리지 않으므로 보낸 비동기 작업이 끝나기도 전에 잘못 notify를 한다. 
+잘 생각해보면 디스패치 그룹이 작업의 완료 시점을 알려주는 것은 수행되는 작업이 동기적으로 수행되었기 때문에 가능했다. 디스패치 그룹이 notify 하는 시점은 스레드로 배정된 작업이 끝난 시점이라는 것이다. 만약 작업 내부에서 비동기적으로 수행되는 작업이 있는 경우에는 스레드는 다른 스레드로 보낸 비동기적 작업을 기다리지 않으므로 보낸 비동기 작업이 끝나기도 전에 잘못 notify를 한다.
 
 ![image4](./image4.png)
 
@@ -51,7 +51,7 @@ group1.notify(queue: .main) {
  \
 URLSession은 내부적으로 비동기 작업이므로 URLSession 코드 전에 `enter` 메서드를 실행하여 카운트를 늘려주고 `defer` 메서드를 사용해 메서드가 끝날 때 `leave` 메서드를 실행시킨다. 이미지 뷰와 텍스트 업데이트는 메인 스레드에서 해야 한다.
 
-```
+```swift
 @objc func tapButton() {
     let group = DispatchGroup()
     
