@@ -1,4 +1,5 @@
 # **GCD(Grand Central Dispatch)**
+
 GCD(Grand Central Dispatch)란 멀티 코어와 멀티 프로세싱 환경에서 최적화된 프로그래밍을 할 수 있도록 애플이 개발한 기술이다. Dispatch Queue에 들어온 작업을 직렬적(serially) 또는 동시적(concurrently)으로 실행한다. 큐에 들어온 작업은 시스템에 의해 생성된 스레드에서 동기적(synchronously) 또는 비동기적(asynchronously)으로 실행되며 작업이 종료되면 해당 스레드를 제거한다.
 
 DispatchQueue는 3가지 종류가 있다.
@@ -19,20 +20,15 @@ DispatchQueue는 3가지 종류가 있다.
 
 ### **종류**
 
-- **userInteractive**  
-
+- **userInteractive**\
     애니메이션, 이벤트 처리 또는 앱의 인터페이스 업데이트와 같은 유저와 직접적으로 상호작용하는 작업에 할당할 수 있다.
-- **userInitiated**
-    
+- **userInitiated**\
     유저가 하는 작업에 즉각적인 결과를 제공하거나 유저가 앱을 사용하지 못하게 하는 작업에 할당할 수 있다. 비동기적으로 처리된 작업을 예로 들 수 있다.
-- **default**
-    
+- **default**\
     디폴트로 설정된 값으로 일반적인 작업을 할 때 사용하면 된다. 그냥 모르면 이거 쓰자.
-- **utility**
-
+- **utility**\
     보통 progress indicator와 함께 길게 실행되는 작업, 계산, IO, Networking, 지속적인 데이터 feed 작업에 할당할 수 있다.
-- **background**
-    
+- **background**\
     유저가 직접적으로 인지하지 않는 작업과 같이 앱의 백그라운드에서 실행되는 작업을 수행하는 데 사용하는 작업에 할당할 수 있다. 속도보다는 효율성을 중시할 때 사용한다.
 
 ### **특징**
@@ -45,7 +41,7 @@ DispatchQueue는 3가지 종류가 있다.
 
 커스텀 디스패치 큐는 기본 설정이 직렬 큐로 글로벌 큐처럼 qos를 설정할 수 있다. `label`를 지정해 만들 수 있다. `attributes` 파라미터를 통해 동시 큐로 바꿀 수 있다.
 
-```
+```swift
 let customSerialQueue = DispatchQueue(label: "serialQueue")
 let customConcurrentQueue = DispatchQueue(label: "concurrentQueue", attributes: .concurrent)
 ```
