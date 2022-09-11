@@ -12,7 +12,7 @@ IOS 동시성 프로그래밍 공부하면서 정리한 레포지토리
 |[4. Dispatch WorkItem](./4.Dispatch%20WorkItem/README.md)|2022. 08. 30|✅|
 |[5. Dispatch Semaphore](./5.Dispatch%20Semaphore/README.md)|2022. 09. 01|✅|
 |[6. Operation, AsyncOperation](./6.Operation,%20AsyncOperation/README.md)|2022. 09. 04|✅|
-|7. Operation Queue|예정|❎|
+|[7. Operation Queue](./7.Operation%20Queue/README.md)|2022. 09. 11|✅|
 |8. Concurrency Problem|예정|❎|
 
 ## **참고**
